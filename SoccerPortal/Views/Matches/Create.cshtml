@@ -1,0 +1,87 @@
+@model SoccerPortal.Models.Match
+
+@{
+    ViewData["Title"] = "Create Match";
+}
+
+<div class="container mt-4">
+    <h1>Create New Match</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Match Information</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="form-group">
+                            <label class="control-label">Home Team</label>
+                            <select asp-for="Team1ID" class="form-control" asp-items="ViewBag.Teams">
+                                <option value="">-- Select Home Team --</option>
+                            </select>
+                            <span asp-validation-for="Team1ID" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label">Away Team</label>
+                            <select asp-for="Team2ID" class="form-control" asp-items="ViewBag.Teams">
+                                <option value="">-- Select Away Team --</option>
+                            </select>
+                            <span asp-validation-for="Team2ID" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="MatchDate" class="control-label">Match Date and Time</label>
+                            <input asp-for="MatchDate" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="MatchDate" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label">Venue</label>
+                            <select asp-for="VenueID" class="form-control" asp-items="ViewBag.Venues">
+                                <option value="">-- Select Venue --</option>
+                            </select>
+                            <span asp-validation-for="VenueID" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Score" class="control-label">Score (leave blank for upcoming matches)</label>
+                            <input asp-for="Score" class="form-control" placeholder="e.g., 2-1" />
+                            <span asp-validation-for="Score" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4>Help</h4>
+                </div>
+                <div class="card-body">
+                    <p>Fill in the required information to create a new match:</p>
+                    <ul>
+                        <li><strong>Home Team:</strong> The team hosting the match</li>
+                        <li><strong>Away Team:</strong> The visiting team</li>
+                        <li><strong>Match Date and Time:</strong> When the match will be played</li>
+                        <li><strong>Venue:</strong> Where the match will be played</li>
+                        <li><strong>Score:</strong> Leave blank for upcoming matches, or enter the result (e.g., "2-1") for completed matches</li>
+                    </ul>
+                    <p class="text-warning">Note: Home team and away team cannot be the same.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

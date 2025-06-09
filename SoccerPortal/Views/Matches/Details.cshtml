@@ -1,0 +1,107 @@
+@model SoccerPortal.Models.Match
+
+@{
+    ViewData["Title"] = "Match Details";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2>Match Details</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="match-container text-center p-4 bg-light rounded">
+                        <div class="row align-items-center">
+                            <div class="col-md-5">
+                                <h3>
+                                    <a asp-controller="Teams" asp-action="Details" asp-route-id="@Model.Team1ID">
+                                        @Model.Team1.TeamName
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="col-md-2">
+                                @if (string.IsNullOrEmpty(Model.Score))
+                                {
+                                    <div class="match-time">
+                                        <h4>vs</h4>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="match-score">
+                                        <h2 class="badge badge-success p-3">@Model.Score</h2>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-5">
+                                <h3>
+                                    <a asp-controller="Teams" asp-action="Details" asp-route-id="@Model.Team2ID">
+                                        @Model.Team2.TeamName
+                                    </a>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <dl class="row mt-4">
+                        <dt class="col-sm-3">Match Date</dt>
+                        <dd class="col-sm-9">@Model.MatchDate.ToString("dddd, MMMM d, yyyy HH:mm")</dd>
+
+                        <dt class="col-sm-3">Venue</dt>
+                        <dd class="col-sm-9">@Model.Venue.VenueName, @Model.Venue.Location</dd>
+
+                        <dt class="col-sm-3">Status</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.MatchDate > DateTime.Now)
+                            {
+                                <span class="badge badge-warning">Upcoming</span>
+                            }
+                            else
+                            {
+                                if (string.IsNullOrEmpty(Model.Score))
+                                {
+                                    <span class="badge badge-secondary">Pending Result</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-success">Completed</span>
+                                }
+                            }
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="col-md-4">
+                    @if (Model.Fixtures != null && Model.Fixtures.Any())
+                    {
+                        <div class="card mb-3">
+                            <div class="card-header bg-warning">Fixture Information</div>
+                            <div class="card-body">
+                                @foreach (var fixture in Model.Fixtures)
+                                {
+                                    <p><strong>Date:</strong> @fixture.FixtureDate.ToString("MM/dd/yyyy HH:mm")</p>
+                                    <p><strong>Status:</strong> @fixture.Status</p>
+                                }
+                            </div>
+                        </div>
+                    }
+                    
+                    <div class="card">
+                        <div class="card-header bg-secondary text-white">Actions</div>
+                        <div class="card-body">
+                            <div class="btn-group-vertical w-100">
+                                <a asp-action="Edit" asp-route-id="@Model.MatchID" class="btn btn-warning mb-2">Edit Match</a>
+                                <a asp-action="Index" class="btn btn-secondary mb-2">Back to List</a>
+                                <a asp-action="Delete" asp-route-id="@Model.MatchID" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

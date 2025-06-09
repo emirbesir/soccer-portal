@@ -1,0 +1,108 @@
+@model IEnumerable<SoccerPortal.Models.Match>
+
+@{
+    ViewData["Title"] = "Matches";
+}
+
+<div class="container mt-4">
+    <h1>Soccer Matches</h1>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Add New Match</a>
+    </p>
+    
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <h4>Filter Matches</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index" method="get" class="form-inline">
+                <div class="form-group mr-3 mb-2">
+                    <label for="teamFilter" class="mr-2">Team:</label>
+                    <select name="teamFilter" id="teamFilter" class="form-control">
+                        <option value="">All Teams</option>
+                        @foreach (var team in ViewBag.Teams)
+                        {
+                            <option value="@team.Value" selected="@(ViewBag.TeamFilter == team.Value)">@team.Text</option>
+                        }
+                    </select>
+                </div>
+                
+                <div class="form-group mr-3 mb-2">
+                    <label for="venueFilter" class="mr-2">Venue:</label>
+                    <select name="venueFilter" id="venueFilter" class="form-control">
+                        <option value="">All Venues</option>
+                        @foreach (var venue in ViewBag.Venues)
+                        {
+                            <option value="@venue.Value" selected="@(ViewBag.VenueFilter == venue.Value)">@venue.Text</option>
+                        }
+                    </select>
+                </div>
+                
+                <div class="form-group mr-3 mb-2">
+                    <label for="dateFilter" class="mr-2">Date:</label>
+                    <input type="date" name="dateFilter" id="dateFilter" class="form-control" value="@ViewBag.DateFilter" />
+                </div>
+                
+                <button type="submit" class="btn btn-primary mb-2">Filter</button>
+                <a asp-action="Index" class="btn btn-secondary mb-2 ml-2">Clear Filters</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h3>Match Schedule & Results</h3>
+        </div>
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <p>No matches found matching your criteria.</p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Home Team</th>
+                                <th>Away Team</th>
+                                <th>Score</th>
+                                <th>Venue</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var match in Model)
+                            {
+                                <tr class="@(match.MatchDate > DateTime.Now ? "" : "table-secondary")">
+                                    <td>@match.MatchDate.ToString("MMM d, yyyy HH:mm")</td>
+                                    <td>@match.Team1.TeamName</td>
+                                    <td>@match.Team2.TeamName</td>
+                                    <td>
+                                        @if (string.IsNullOrEmpty(match.Score))
+                                        {
+                                            <span class="badge badge-warning">Upcoming</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-success">@match.Score</span>
+                                        }
+                                    </td>
+                                    <td>@match.Venue.VenueName</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a asp-action="Details" asp-route-id="@match.MatchID" class="btn btn-sm btn-info">Details</a>
+                                            <a asp-action="Edit" asp-route-id="@match.MatchID" class="btn btn-sm btn-warning">Edit</a>
+                                            <a asp-action="Delete" asp-route-id="@match.MatchID" class="btn btn-sm btn-danger">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

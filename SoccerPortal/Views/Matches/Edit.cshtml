@@ -1,0 +1,106 @@
+@model SoccerPortal.Models.Match
+
+@{
+    ViewData["Title"] = "Edit Match";
+}
+
+<div class="container mt-4">
+    <h1>Edit Match</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h4>Edit Match Information</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="MatchID" />
+                        
+                        <div class="form-group">
+                            <label class="control-label">Home Team</label>
+                            <select asp-for="Team1ID" class="form-control" asp-items="ViewBag.Teams">
+                            </select>
+                            <span asp-validation-for="Team1ID" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label">Away Team</label>
+                            <select asp-for="Team2ID" class="form-control" asp-items="ViewBag.Teams">
+                            </select>
+                            <span asp-validation-for="Team2ID" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="MatchDate" class="control-label">Match Date and Time</label>
+                            <input asp-for="MatchDate" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="MatchDate" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label">Venue</label>
+                            <select asp-for="VenueID" class="form-control" asp-items="ViewBag.Venues">
+                            </select>
+                            <span asp-validation-for="VenueID" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Score" class="control-label">Score</label>
+                            <input asp-for="Score" class="form-control" />
+                            <span asp-validation-for="Score" class="text-danger"></span>
+                            <small class="text-muted">Leave blank for upcoming matches, or enter the result (e.g., "2-1") for completed matches.</small>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <input type="submit" value="Save" class="btn btn-warning" />
+                            <a asp-action="Details" asp-route-id="@Model.MatchID" class="btn btn-info">Back to Details</a>
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-header bg-info text-white">
+                    <h4>Current Teams</h4>
+                </div>
+                <div class="card-body">
+                    <div class="match-summary">
+                        <div class="row text-center">
+                            <div class="col-5">
+                                <strong>@(Model.Team1?.TeamName ?? "Unknown Team")</strong>
+                            </div>
+                            <div class="col-2">vs</div>
+                            <div class="col-5">
+                                <strong>@(Model.Team2?.TeamName ?? "Unknown Team")</strong>
+                            </div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <small>at @(Model.Venue?.VenueName ?? "Unknown Venue")</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4>Important Notes</h4>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Home team and away team cannot be the same.</li>
+                        <li>Make sure the date format is correct.</li>
+                        <li>For completed matches, enter the score in the format "X-Y" (e.g., "2-1").</li>
+                        <li>For upcoming matches, leave the score field blank.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

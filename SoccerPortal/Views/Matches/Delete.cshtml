@@ -1,0 +1,61 @@
+@model SoccerPortal.Models.Match
+
+@{
+    ViewData["Title"] = "Delete Match";
+}
+
+<div class="container mt-4">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h2>Delete Match</h2>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <h4>Are you sure you want to delete this match?</h4>
+                <p>This action cannot be undone.</p>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5>Match Details</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Home Team</dt>
+                        <dd class="col-sm-9">@Model.Team1.TeamName</dd>
+
+                        <dt class="col-sm-3">Away Team</dt>
+                        <dd class="col-sm-9">@Model.Team2.TeamName</dd>
+
+                        <dt class="col-sm-3">Match Date</dt>
+                        <dd class="col-sm-9">@Model.MatchDate.ToString("MMMM d, yyyy HH:mm")</dd>
+
+                        <dt class="col-sm-3">Venue</dt>
+                        <dd class="col-sm-9">@Model.Venue.VenueName</dd>
+
+                        <dt class="col-sm-3">Score</dt>
+                        <dd class="col-sm-9">
+                            @if (string.IsNullOrEmpty(Model.Score))
+                            {
+                                <span class="badge badge-warning">Upcoming match</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">@Model.Score</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="MatchID" />
+                <div class="form-group mt-3">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a asp-action="Details" asp-route-id="@Model.MatchID" class="btn btn-secondary">Cancel</a>
+                    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
