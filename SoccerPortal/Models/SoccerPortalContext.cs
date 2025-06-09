@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace SoccerPortal.Models
 {
-    public class SoccerPortalContext : DbContext
+    public class SoccerPortalContext : IdentityDbContext<ApplicationUser>
     {
         public SoccerPortalContext(DbContextOptions<SoccerPortalContext> options) : base(options)
         {

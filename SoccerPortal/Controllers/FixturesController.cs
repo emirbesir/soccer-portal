@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using SoccerPortal.Models;
 
 namespace SoccerPortal.Controllers
@@ -56,6 +57,7 @@ namespace SoccerPortal.Controllers
         }
 
         // GET: Fixtures/Create
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(int? matchId)
         {
             // Get upcoming matches without fixtures
@@ -103,6 +105,7 @@ namespace SoccerPortal.Controllers
 
         // POST: Fixtures/Create
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MatchID,FixtureDate,Status")] Fixture fixture)
         {
@@ -171,6 +174,7 @@ namespace SoccerPortal.Controllers
         }
 
         // GET: Fixtures/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -198,6 +202,7 @@ namespace SoccerPortal.Controllers
 
         // POST: Fixtures/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("FixtureID,MatchID,FixtureDate,Status")] Fixture fixture)
         {
@@ -254,6 +259,7 @@ namespace SoccerPortal.Controllers
         }
 
         // GET: Fixtures/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -280,6 +286,7 @@ namespace SoccerPortal.Controllers
 
         // POST: Fixtures/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using SoccerPortal.Models;
 
 namespace SoccerPortal.Controllers
@@ -43,6 +44,7 @@ namespace SoccerPortal.Controllers
         }
 
         // GET: Venues/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -51,6 +53,7 @@ namespace SoccerPortal.Controllers
         // POST: Venues/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("VenueName,Location")] Venue venue)
         {
             if (ModelState.IsValid)
@@ -63,6 +66,7 @@ namespace SoccerPortal.Controllers
         }
 
         // GET: Venues/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,6 +85,7 @@ namespace SoccerPortal.Controllers
         // POST: Venues/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("VenueID,VenueName,Location")] Venue venue)
         {
             if (id != venue.VenueID)
@@ -112,6 +117,7 @@ namespace SoccerPortal.Controllers
         }
 
         // GET: Venues/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,6 +144,7 @@ namespace SoccerPortal.Controllers
 
         // POST: Venues/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

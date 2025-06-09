@@ -1,15 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using SoccerPortal.Data;
 using SoccerPortal.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Add Entity Framework Core database context with SQL Server
-builder.Services.AddDbContext<SoccerPortal.Models.SoccerPortalContext>(options =>
+builder.Services.AddDbContext<SoccerPortalContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+})
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<SoccerPortalContext>();
 
 var app = builder.Build();
 
@@ -29,6 +36,7 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<SoccerPortalContext>();
         DbInitializer.Initialize(context);
+        IdentityInitializer.Initialize(services).GetAwaiter().GetResult();
     }
     catch (Exception ex)
     {
@@ -42,6 +50,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
