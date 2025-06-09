@@ -1,0 +1,87 @@
+@model SoccerPortal.Models.Fixture
+
+@{
+    ViewData["Title"] = "Create Fixture";
+}
+
+<div class="container mt-4">
+    <h1>Create New Fixture</h1>
+    <hr />
+    
+    @if (ViewBag.NoMatches != null)
+    {
+        <div class="alert alert-warning">
+            <p>@ViewBag.NoMatches</p>
+            <a asp-controller="Matches" asp-action="Create" class="btn btn-primary">Create a New Match</a>
+            <a asp-action="Index" class="btn btn-secondary">Return to Fixtures</a>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4>Fixture Information</h4>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            
+                            <div class="form-group">
+                                <label asp-for="MatchID" class="control-label">Select Match</label>
+                                <select asp-for="MatchID" class="form-control" asp-items="ViewBag.Matches">
+                                    <option value="">-- Select Match --</option>
+                                </select>
+                                <span asp-validation-for="MatchID" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label asp-for="FixtureDate" class="control-label">Fixture Date and Time</label>
+                                <input asp-for="FixtureDate" class="form-control" type="datetime-local" />
+                                <span asp-validation-for="FixtureDate" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label asp-for="Status" class="control-label">Status</label>
+                                <select asp-for="Status" class="form-control">
+                                    <option value="Scheduled">Scheduled</option>
+                                    <option value="Postponed">Postponed</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                                <span asp-validation-for="Status" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group mt-4">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h4>Help</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Create a new fixture for a match:</p>
+                        <ul>
+                            <li><strong>Select Match:</strong> Choose the match you want to create a fixture for</li>
+                            <li><strong>Fixture Date and Time:</strong> When the match will be played</li>
+                            <li><strong>Status:</strong> Current status of the fixture (usually "Scheduled" for new fixtures)</li>
+                        </ul>
+                        <p class="text-info">Note: Only upcoming matches without existing fixtures are displayed in the dropdown.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

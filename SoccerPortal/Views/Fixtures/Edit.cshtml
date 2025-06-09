@@ -1,0 +1,77 @@
+@model SoccerPortal.Models.Fixture
+
+@{
+    ViewData["Title"] = "Edit Fixture";
+}
+
+<div class="container mt-4">
+    <h1>Edit Fixture</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h4>Fixture Information</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="FixtureID" />
+                        <input type="hidden" asp-for="MatchID" />
+                        
+                        <div class="form-group">
+                            <label class="control-label">Match</label>
+                            <input type="text" value="@ViewBag.MatchInfo" class="form-control" readonly />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="FixtureDate" class="control-label">Fixture Date and Time</label>
+                            <input asp-for="FixtureDate" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="FixtureDate" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Status" class="control-label">Status</label>
+                            <select asp-for="Status" class="form-control">
+                                <option value="Scheduled">Scheduled</option>
+                                <option value="Postponed">Postponed</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <input type="submit" value="Save" class="btn btn-warning" />
+                            <a asp-action="Details" asp-route-id="@Model.FixtureID" class="btn btn-info">Back to Details</a>
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4>Note</h4>
+                </div>
+                <div class="card-body">
+                    <p>Update the fixture status to reflect its current state:</p>
+                    <ul>
+                        <li><strong>Scheduled:</strong> The match is scheduled normally</li>
+                        <li><strong>Postponed:</strong> The match has been delayed</li>
+                        <li><strong>In Progress:</strong> The match is currently being played</li>
+                        <li><strong>Completed:</strong> The match has finished</li>
+                        <li><strong>Cancelled:</strong> The match has been cancelled</li>
+                    </ul>
+                    <p>To update the match score, please <a asp-controller="Matches" asp-action="Edit" asp-route-id="@Model.MatchID">edit the match</a> directly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
