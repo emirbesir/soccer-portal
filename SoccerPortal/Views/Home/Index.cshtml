@@ -1,8 +1,138 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model SoccerPortal.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Soccer Results Portal";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <div class="jumbotron bg-primary text-white p-4">
+        <h1 class="display-4">Welcome to Soccer Results Portal</h1>
+        <p class="lead">Your one-stop destination for match results and fixtures.</p>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h3>Upcoming Matches</h3>
+                </div>
+                <div class="card-body">
+                    @if (!Model.UpcomingMatches.Any())
+                    {
+                        <p>No upcoming matches scheduled.</p>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Home</th>
+                                        <th>Away</th>
+                                        <th>Venue</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var match in Model.UpcomingMatches)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-controller="Matches" asp-action="Details" asp-route-id="@match.MatchID">
+                                                    @match.MatchDate.ToString("MMM d, yyyy HH:mm")
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Teams" asp-action="Details" asp-route-id="@match.Team1ID">
+                                                    @match.Team1.TeamName
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Teams" asp-action="Details" asp-route-id="@match.Team2ID">
+                                                    @match.Team2.TeamName
+                                                </a>
+                                            </td>
+                                            <td>@match.Venue.VenueName</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-right">
+                            <a asp-controller="Matches" asp-action="Index" class="btn btn-outline-success">View All Fixtures</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h3>Recent Results</h3>
+                </div>
+                <div class="card-body">
+                    @if (!Model.PastMatches.Any())
+                    {
+                        <p>No recent match results available.</p>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Match</th>
+                                        <th>Score</th>
+                                        <th>Venue</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var match in Model.PastMatches)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-controller="Matches" asp-action="Details" asp-route-id="@match.MatchID">
+                                                    @match.MatchDate.ToString("MMM d, yyyy")
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Teams" asp-action="Details" asp-route-id="@match.Team1ID">
+                                                    @match.Team1.TeamName
+                                                </a>
+                                                vs
+                                                <a asp-controller="Teams" asp-action="Details" asp-route-id="@match.Team2ID">
+                                                    @match.Team2.TeamName
+                                                </a>
+                                            </td>
+                                            <td><strong>@match.Score</strong></td>
+                                            <td>@match.Venue.VenueName</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-right">
+                            <a asp-controller="Matches" asp-action="Index" class="btn btn-outline-info">View All Results</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h3>Teams</h3>
+                </div>
+                <div class="card-body text-center">
+                    <p>Discover team information, players, and match history.</p>
+                    <a asp-controller="Teams" asp-action="Index" class="btn btn-warning">Browse Teams</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
