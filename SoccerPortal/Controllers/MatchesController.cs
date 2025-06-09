@@ -106,23 +106,25 @@ namespace SoccerPortal.Controllers
                 ModelState.AddModelError("Team2ID", "Home team and away team cannot be the same.");
             }
 
-            // Force ModelState to be valid if we don't have validation errors
-            // This is needed because sometimes the ModelState is invalid without clear reasons
-            if (match.Team1ID != 0 && match.Team2ID != 0 && match.VenueID != 0 && match.Team1ID != match.Team2ID)
+            // Ensure Score can be empty string or null for future matches
+            if (match.Score == null || match.Score.Trim() == "")
             {
-                ModelState.Clear(); // Clear any lingering ModelState issues
+                match.Score = string.Empty; // Explicitly set to empty string for upcoming matches
             }
 
-            try
+            // Force ModelState to be valid if basic requirements are met
+            if (match.Team1ID != 0 && match.Team2ID != 0 && match.VenueID != 0 && match.Team1ID != match.Team2ID)
             {
-                _context.Add(match);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                // Add error message to be displayed in the view
-                ModelState.AddModelError("", $"Error creating match: {ex.Message}");
+                try
+                {
+                    _context.Add(match);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"Error creating match: {ex.Message}");
+                }
             }
             
             // If we got this far, something failed, redisplay form
