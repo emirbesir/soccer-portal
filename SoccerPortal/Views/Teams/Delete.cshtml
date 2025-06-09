@@ -1,0 +1,53 @@
+@model SoccerPortal.Models.Team
+
+@{
+    ViewData["Title"] = "Delete Team";
+}
+
+<div class="container mt-4">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h2>Delete Team</h2>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <h4>Are you sure you want to delete this team?</h4>
+                <p>This action will also affect any matches and players associated with this team.</p>
+                <p><strong>Warning:</strong> This action cannot be undone.</p>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5>Team Details</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Team Name</dt>
+                        <dd class="col-sm-9">@Model.TeamName</dd>
+
+                        <dt class="col-sm-3">Coach</dt>
+                        <dd class="col-sm-9">@Model.Coach</dd>
+
+                        <dt class="col-sm-3">Home City</dt>
+                        <dd class="col-sm-9">@Model.HomeCity</dd>
+
+                        <dt class="col-sm-3">Founded Year</dt>
+                        <dd class="col-sm-9">@Model.FoundedYear</dd>
+                        
+                        <dt class="col-sm-3">Number of Players</dt>
+                        <dd class="col-sm-9">@(Model.Players != null ? Model.Players.Count : 0)</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="TeamID" />
+                <div class="form-group mt-3">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a asp-action="Details" asp-route-id="@Model.TeamID" class="btn btn-secondary">Cancel</a>
+                    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+@model SoccerPortal.Models.Team
+
+@{
+    ViewData["Title"] = "Team Details";
+}
+
+<div class="container mt-4">
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            <h2>@Model.TeamName</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Team Information</h4>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-3">Coach</dt>
+                        <dd class="col-sm-9">@Model.Coach</dd>
+                        <dt class="col-sm-3">Home City</dt>
+                        <dd class="col-sm-9">@Model.HomeCity</dd>
+                        <dt class="col-sm-3">Founded</dt>
+                        <dd class="col-sm-9">@Model.FoundedYear</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-end">
+                        <a asp-action="Edit" asp-route-id="@Model.TeamID" class="btn btn-warning mx-1">Edit</a>
+                        <a asp-action="Index" class="btn btn-secondary mx-1">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h3>Players</h3>
+        </div>
+        <div class="card-body">
+            @if (Model.Players == null || !Model.Players.Any())
+            {
+                <p>No players registered for this team.</p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Age</th>
+                                <th>Goals Scored</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var player in Model.Players)
+                            {
+                                <tr>
+                                    <td>@player.Name</td>
+                                    <td>@player.Position</td>
+                                    <td>@player.Age</td>
+                                    <td>@player.GoalsScored</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h3>Match History</h3>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.Matches == null || ((IEnumerable<SoccerPortal.Models.Match>)ViewBag.Matches).Count() == 0)
+            {
+                <p>No matches played by this team.</p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Home Team</th>
+                                <th>Away Team</th>
+                                <th>Score</th>
+                                <th>Venue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var match in (IEnumerable<SoccerPortal.Models.Match>)ViewBag.Matches)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-controller="Matches" asp-action="Details" asp-route-id="@match.MatchID">
+                                            @match.MatchDate.ToString("MMM d, yyyy")
+                                        </a>
+                                    </td>
+                                    <td class="@(match.Team1ID == Model.TeamID ? "font-weight-bold" : "")">
+                                        @match.Team1.TeamName
+                                    </td>
+                                    <td class="@(match.Team2ID == Model.TeamID ? "font-weight-bold" : "")">
+                                        @match.Team2.TeamName
+                                    </td>
+                                    <td>@(string.IsNullOrEmpty(match.Score) ? "Not played yet" : match.Score)</td>
+                                    <td>@match.Venue.VenueName</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

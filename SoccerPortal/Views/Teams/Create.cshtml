@@ -1,0 +1,74 @@
+@model SoccerPortal.Models.Team
+
+@{
+    ViewData["Title"] = "Create Team";
+}
+
+<div class="container mt-4">
+    <h1>Create New Team</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Team Information</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="form-group">
+                            <label asp-for="TeamName" class="control-label">Team Name</label>
+                            <input asp-for="TeamName" class="form-control" />
+                            <span asp-validation-for="TeamName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Coach" class="control-label">Coach</label>
+                            <input asp-for="Coach" class="form-control" />
+                            <span asp-validation-for="Coach" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="HomeCity" class="control-label">Home City</label>
+                            <input asp-for="HomeCity" class="form-control" />
+                            <span asp-validation-for="HomeCity" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="FoundedYear" class="control-label">Founded Year</label>
+                            <input asp-for="FoundedYear" class="form-control" type="number" />
+                            <span asp-validation-for="FoundedYear" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4>Help</h4>
+                </div>
+                <div class="card-body">
+                    <p>Fill in the required information to create a new team:</p>
+                    <ul>
+                        <li><strong>Team Name:</strong> Official name of the team</li>
+                        <li><strong>Coach:</strong> Current head coach name</li>
+                        <li><strong>Home City:</strong> City where the team is based</li>
+                        <li><strong>Founded Year:</strong> Year the team was established</li>
+                    </ul>
+                    <p>You can add players to this team after creating it.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

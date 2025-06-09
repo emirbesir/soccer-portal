@@ -1,0 +1,70 @@
+@model SoccerPortal.Models.Team
+
+@{
+    ViewData["Title"] = "Edit Team";
+}
+
+<div class="container mt-4">
+    <h1>Edit Team</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h4>Edit Team Information</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="TeamID" />
+                        
+                        <div class="form-group">
+                            <label asp-for="TeamName" class="control-label">Team Name</label>
+                            <input asp-for="TeamName" class="form-control" />
+                            <span asp-validation-for="TeamName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Coach" class="control-label">Coach</label>
+                            <input asp-for="Coach" class="form-control" />
+                            <span asp-validation-for="Coach" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="HomeCity" class="control-label">Home City</label>
+                            <input asp-for="HomeCity" class="form-control" />
+                            <span asp-validation-for="HomeCity" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="FoundedYear" class="control-label">Founded Year</label>
+                            <input asp-for="FoundedYear" class="form-control" type="number" />
+                            <span asp-validation-for="FoundedYear" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <input type="submit" value="Save" class="btn btn-warning" />
+                            <a asp-action="Details" asp-route-id="@Model.TeamID" class="btn btn-info">Back to Details</a>
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4>Team Management</h4>
+                </div>
+                <div class="card-body">
+                    <p>Update the team information as needed.</p>
+                    <p>To manage players for this team, return to the team details page after saving your changes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

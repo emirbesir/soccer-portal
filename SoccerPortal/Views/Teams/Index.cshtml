@@ -1,0 +1,38 @@
+@model IEnumerable<SoccerPortal.Models.Team>
+
+@{
+    ViewData["Title"] = "Teams";
+}
+
+<div class="container mt-4">
+    <h1>Soccer Teams</h1>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New Team</a>
+    </p>
+    
+    <div class="row">
+        @foreach (var team in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-dark text-white">
+                        <h4>@team.TeamName</h4>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Coach:</strong> @team.Coach</p>
+                        <p><strong>City:</strong> @team.HomeCity</p>
+                        <p><strong>Founded:</strong> @team.FoundedYear</p>
+                        <p><strong>Players:</strong> @team.Players.Count</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group w-100">
+                            <a asp-action="Details" asp-route-id="@team.TeamID" class="btn btn-info">Details</a>
+                            <a asp-action="Edit" asp-route-id="@team.TeamID" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@team.TeamID" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
