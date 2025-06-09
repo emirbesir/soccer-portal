@@ -1,0 +1,82 @@
+@model SoccerPortal.Models.Player
+
+@{
+    ViewData["Title"] = "Add Player";
+}
+
+<div class="container mt-4">
+    <h1>Add New Player</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Player Information</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label">Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Full name of the player" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="TeamID" class="control-label">Team</label>
+                            <select asp-for="TeamID" class="form-control" asp-items="ViewBag.Teams">
+                                <option value="">-- Select Team --</option>
+                            </select>
+                            <span asp-validation-for="TeamID" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Position" class="control-label">Position</label>
+                            <input asp-for="Position" class="form-control" placeholder="e.g., Forward, Midfielder, etc." />
+                            <span asp-validation-for="Position" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Age" class="control-label">Age</label>
+                            <input asp-for="Age" class="form-control" type="number" min="16" max="50" />
+                            <span asp-validation-for="Age" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="GoalsScored" class="control-label">Goals Scored</label>
+                            <input asp-for="GoalsScored" class="form-control" type="number" min="0" value="0" />
+                            <span asp-validation-for="GoalsScored" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4>Help</h4>
+                </div>
+                <div class="card-body">
+                    <p>Fill in the required information for the new player:</p>
+                    <ul>
+                        <li><strong>Name:</strong> Full name of the player</li>
+                        <li><strong>Team:</strong> The team this player belongs to</li>
+                        <li><strong>Position:</strong> Player's position on the field</li>
+                        <li><strong>Age:</strong> Player's current age</li>
+                        <li><strong>Goals Scored:</strong> Total number of goals scored by this player</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

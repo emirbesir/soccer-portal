@@ -1,0 +1,61 @@
+@model IEnumerable<SoccerPortal.Models.Player>
+
+@{
+    ViewData["Title"] = "Players";
+}
+
+<div class="container mt-4">
+    <h1>Players</h1>
+    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form asp-action="Index" method="get" class="form-inline">
+                <div class="form-group">
+                    <label for="teamFilter" class="mr-2">Filter by Team:</label>
+                    <select name="teamFilter" id="teamFilter" class="form-control" asp-items="ViewBag.Teams" onchange="this.form.submit()">
+                        <option value="">All Teams</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6 text-right">
+            <a asp-action="Create" class="btn btn-primary">Add New Player</a>
+        </div>
+    </div>
+
+    <div class="row">
+        @foreach (var player in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h4>@player.Name</h4>
+                    </div>
+                    <div class="card-body">
+                        <dl>
+                            <dt>Team</dt>
+                            <dd>
+                                <a asp-controller="Teams" asp-action="Details" asp-route-id="@player.TeamID">
+                                    @player.Team.TeamName
+                                </a>
+                            </dd>
+                            <dt>Position</dt>
+                            <dd>@player.Position</dd>
+                            <dt>Age</dt>
+                            <dd>@player.Age</dd>
+                            <dt>Goals Scored</dt>
+                            <dd>@player.GoalsScored</dd>
+                        </dl>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group w-100">
+                            <a asp-action="Details" asp-route-id="@player.PlayerID" class="btn btn-info">Details</a>
+                            <a asp-action="Edit" asp-route-id="@player.PlayerID" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@player.PlayerID" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

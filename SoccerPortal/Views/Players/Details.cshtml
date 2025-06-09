@@ -1,0 +1,42 @@
+@model SoccerPortal.Models.Player
+
+@{
+    ViewData["Title"] = "Player Details";
+}
+
+<div class="container mt-4">
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2>@Model.Name</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Player Information</h4>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-3">Name</dt>
+                        <dd class="col-sm-9">@Model.Name</dd>
+                        <dt class="col-sm-3">Team</dt>
+                        <dd class="col-sm-9">
+                            <a asp-controller="Teams" asp-action="Details" asp-route-id="@Model.TeamID">
+                                @Model.Team.TeamName
+                            </a>
+                        </dd>
+                        <dt class="col-sm-3">Position</dt>
+                        <dd class="col-sm-9">@Model.Position</dd>
+                        <dt class="col-sm-3">Age</dt>
+                        <dd class="col-sm-9">@(Model.Age.HasValue ? Model.Age.Value.ToString() : "Not specified")</dd>
+                        <dt class="col-sm-3">Goals Scored</dt>
+                        <dd class="col-sm-9">@Model.GoalsScored</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a asp-action="Edit" asp-route-id="@Model.PlayerID" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@Model.PlayerID" class="btn btn-danger">Delete</a>
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
