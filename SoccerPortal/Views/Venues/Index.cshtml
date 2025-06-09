@@ -1,0 +1,36 @@
+@model IEnumerable<SoccerPortal.Models.Venue>
+
+@{
+    ViewData["Title"] = "Venues";
+}
+
+<div class="container mt-4">
+    <h1>Stadiums & Venues</h1>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Add New Venue</a>
+    </p>
+
+    <div class="row">
+        @foreach (var venue in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-secondary text-white">
+                        <h4>@venue.VenueName</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="lead">@venue.Location</p>
+                        <p><strong>Matches hosted:</strong> @(venue.Matches != null ? venue.Matches.Count : 0)</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group w-100">
+                            <a asp-action="Details" asp-route-id="@venue.VenueID" class="btn btn-info">Details</a>
+                            <a asp-action="Edit" asp-route-id="@venue.VenueID" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@venue.VenueID" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

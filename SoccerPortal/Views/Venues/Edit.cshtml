@@ -1,0 +1,58 @@
+@model SoccerPortal.Models.Venue
+
+@{
+    ViewData["Title"] = "Edit Venue";
+}
+
+<div class="container mt-4">
+    <h1>Edit Venue</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h4>Venue Information</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="VenueID" />
+                        
+                        <div class="form-group">
+                            <label asp-for="VenueName" class="control-label">Venue Name</label>
+                            <input asp-for="VenueName" class="form-control" />
+                            <span asp-validation-for="VenueName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Location" class="control-label">Location</label>
+                            <input asp-for="Location" class="form-control" />
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <input type="submit" value="Save" class="btn btn-warning" />
+                            <a asp-action="Details" asp-route-id="@Model.VenueID" class="btn btn-info">Back to Details</a>
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4>Note</h4>
+                </div>
+                <div class="card-body">
+                    <p>Editing this venue will update the information for all matches associated with it.</p>
+                    <p>Make sure the information is accurate before saving changes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

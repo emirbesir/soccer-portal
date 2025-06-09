@@ -1,0 +1,60 @@
+@model SoccerPortal.Models.Venue
+
+@{
+    ViewData["Title"] = "Create Venue";
+}
+
+<div class="container mt-4">
+    <h1>Add New Venue</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Venue Information</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="form-group">
+                            <label asp-for="VenueName" class="control-label">Venue Name</label>
+                            <input asp-for="VenueName" class="form-control" placeholder="e.g., Emirates Stadium" />
+                            <span asp-validation-for="VenueName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Location" class="control-label">Location</label>
+                            <input asp-for="Location" class="form-control" placeholder="e.g., London, UK" />
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4>Help</h4>
+                </div>
+                <div class="card-body">
+                    <p>Please fill in the details for the new venue:</p>
+                    <ul>
+                        <li><strong>Venue Name:</strong> Official name of the stadium or venue</li>
+                        <li><strong>Location:</strong> City and country where the venue is located</li>
+                    </ul>
+                    <p>You can add matches at this venue after creating it.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
