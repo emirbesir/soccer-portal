@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -85,9 +86,8 @@ namespace SoccerPortal.Controllers
             }
 
             return View(match);
-        }
-
-        // GET: Matches/Create
+        }        // GET: Matches/Create
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             ViewBag.Teams = new SelectList(await _context.Teams.ToListAsync(), "TeamID", "TeamName");
@@ -98,6 +98,7 @@ namespace SoccerPortal.Controllers
         // POST: Matches/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Team1ID,Team2ID,MatchDate,Score,VenueID")] Match match)
         {
             // Basic validation
@@ -131,9 +132,8 @@ namespace SoccerPortal.Controllers
             ViewBag.Teams = new SelectList(await _context.Teams.ToListAsync(), "TeamID", "TeamName");
             ViewBag.Venues = new SelectList(await _context.Venues.ToListAsync(), "VenueID", "VenueName");
             return View(match);
-        }
-
-        // GET: Matches/Edit/5
+        }        // GET: Matches/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -160,6 +160,7 @@ namespace SoccerPortal.Controllers
         // POST: Matches/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("MatchID,Team1ID,Team2ID,MatchDate,Score,VenueID")] Match match)
         {
             if (id != match.MatchID)
@@ -203,9 +204,8 @@ namespace SoccerPortal.Controllers
             ViewBag.Teams = new SelectList(await _context.Teams.ToListAsync(), "TeamID", "TeamName");
             ViewBag.Venues = new SelectList(await _context.Venues.ToListAsync(), "VenueID", "VenueName");
             return View(match);
-        }
-
-        // GET: Matches/Delete/5
+        }        // GET: Matches/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -229,6 +229,7 @@ namespace SoccerPortal.Controllers
         // POST: Matches/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var match = await _context.Matches.FindAsync(id);

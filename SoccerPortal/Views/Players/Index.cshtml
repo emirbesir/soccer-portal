@@ -17,9 +17,11 @@
                     </select>
                 </div>
             </form>
-        </div>
-        <div class="col-md-6 text-right">
-            <a asp-action="Create" class="btn btn-primary">Add New Player</a>
+        </div>        <div class="col-md-6 text-right">
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Create" class="btn btn-primary">Add New Player</a>
+            }
         </div>
     </div>
 
@@ -47,11 +49,13 @@
                             <dd>@player.GoalsScored</dd>
                         </dl>
                     </div>
-                    <div class="card-footer">
-                        <div class="btn-group w-100">
+                    <div class="card-footer">                        <div class="btn-group w-100">
                             <a asp-action="Details" asp-route-id="@player.PlayerID" class="btn btn-info">Details</a>
-                            <a asp-action="Edit" asp-route-id="@player.PlayerID" class="btn btn-warning">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@player.PlayerID" class="btn btn-danger">Delete</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@player.PlayerID" class="btn btn-warning">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@player.PlayerID" class="btn btn-danger">Delete</a>
+                            }
                         </div>
                     </div>
                 </div>

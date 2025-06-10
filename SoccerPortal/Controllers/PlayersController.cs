@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -51,9 +52,8 @@ namespace SoccerPortal.Controllers
             }
 
             return View(player);
-        }
-
-        // GET: Players/Create
+        }        // GET: Players/Create
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(int? teamId)
         {
             ViewBag.Teams = new SelectList(await _context.Teams.ToListAsync(), "TeamID", "TeamName");
@@ -71,6 +71,7 @@ namespace SoccerPortal.Controllers
         // POST: Players/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("TeamID,Name,Position,Age,GoalsScored")] Player player)
         {
             // Basic validation
@@ -96,9 +97,8 @@ namespace SoccerPortal.Controllers
             
             ViewBag.Teams = new SelectList(await _context.Teams.ToListAsync(), "TeamID", "TeamName", player.TeamID);
             return View(player);
-        }
-
-        // GET: Players/Edit/5
+        }        // GET: Players/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -118,6 +118,7 @@ namespace SoccerPortal.Controllers
         // POST: Players/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("PlayerID,TeamID,Name,Position,Age,GoalsScored")] Player player)
         {
             if (id != player.PlayerID)
@@ -158,9 +159,8 @@ namespace SoccerPortal.Controllers
 
             ViewBag.Teams = new SelectList(await _context.Teams.ToListAsync(), "TeamID", "TeamName", player.TeamID);
             return View(player);
-        }
-
-        // GET: Players/Delete/5
+        }        // GET: Players/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -183,6 +183,7 @@ namespace SoccerPortal.Controllers
         // POST: Players/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var player = await _context.Players.FindAsync(id);

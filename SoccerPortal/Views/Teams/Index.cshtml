@@ -5,10 +5,12 @@
 }
 
 <div class="container mt-4">
-    <h1>Soccer Teams</h1>
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Create New Team</a>
-    </p>
+    <h1>Soccer Teams</h1>    @if (User.IsInRole("Admin"))
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Create New Team</a>
+        </p>
+    }
     
     <div class="row">
         @foreach (var team in Model)
@@ -24,11 +26,13 @@
                         <p><strong>Founded:</strong> @team.FoundedYear</p>
                         <p><strong>Players:</strong> @team.Players.Count</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="btn-group w-100">
+                    <div class="card-footer">                        <div class="btn-group w-100">
                             <a asp-action="Details" asp-route-id="@team.TeamID" class="btn btn-info">Details</a>
-                            <a asp-action="Edit" asp-route-id="@team.TeamID" class="btn btn-warning">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@team.TeamID" class="btn btn-danger">Delete</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@team.TeamID" class="btn btn-warning">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@team.TeamID" class="btn btn-danger">Delete</a>
+                            }
                         </div>
                     </div>
                 </div>

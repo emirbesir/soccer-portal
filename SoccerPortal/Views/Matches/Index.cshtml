@@ -4,11 +4,13 @@
     ViewData["Title"] = "Matches";
 }
 
-<div class="container mt-4">
-    <h1>Soccer Matches</h1>
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Add New Match</a>
-    </p>
+<div class="container mt-4">    <h1>Soccer Matches</h1>
+    @if (User.IsInRole("Admin"))
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Add New Match</a>
+        </p>
+    }
     
     <div class="card mb-4">
         <div class="card-header bg-light">
@@ -90,11 +92,13 @@
                                         }
                                     </td>
                                     <td>@match.Venue.VenueName</td>
-                                    <td>
-                                        <div class="btn-group">
+                                    <td>                                        <div class="btn-group">
                                             <a asp-action="Details" asp-route-id="@match.MatchID" class="btn btn-sm btn-info">Details</a>
-                                            <a asp-action="Edit" asp-route-id="@match.MatchID" class="btn btn-sm btn-warning">Edit</a>
-                                            <a asp-action="Delete" asp-route-id="@match.MatchID" class="btn btn-sm btn-danger">Delete</a>
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                                <a asp-action="Edit" asp-route-id="@match.MatchID" class="btn btn-sm btn-warning">Edit</a>
+                                                <a asp-action="Delete" asp-route-id="@match.MatchID" class="btn btn-sm btn-danger">Delete</a>
+                                            }
                                         </div>
                                     </td>
                                 </tr>

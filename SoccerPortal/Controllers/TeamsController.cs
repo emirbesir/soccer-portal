@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SoccerPortal.Models;
@@ -47,10 +49,10 @@ namespace SoccerPortal.Controllers
 
             ViewBag.Matches = matches;
 
-            return View(team);
-        }
+            return View(team);        }
 
         // GET: Teams/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -59,6 +61,7 @@ namespace SoccerPortal.Controllers
         // POST: Teams/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("TeamName,Coach,HomeCity,FoundedYear")] Team team)
         {
             if (ModelState.IsValid)
@@ -71,6 +74,7 @@ namespace SoccerPortal.Controllers
         }
 
         // GET: Teams/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,11 +88,10 @@ namespace SoccerPortal.Controllers
                 return NotFound();
             }
             return View(team);
-        }
-
-        // POST: Teams/Edit/5
+        }        // POST: Teams/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("TeamID,TeamName,Coach,HomeCity,FoundedYear")] Team team)
         {
             if (id != team.TeamID)
@@ -117,9 +120,8 @@ namespace SoccerPortal.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(team);
-        }
-
-        // GET: Teams/Delete/5
+        }        // GET: Teams/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,6 +142,7 @@ namespace SoccerPortal.Controllers
         // POST: Teams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var team = await _context.Teams.FindAsync(id);

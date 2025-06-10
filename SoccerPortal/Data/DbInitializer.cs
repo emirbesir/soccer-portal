@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using SoccerPortal.Models;
 
 namespace SoccerPortal.Data
@@ -97,11 +98,45 @@ namespace SoccerPortal.Data
                     MatchID = matches[1].MatchID,
                     FixtureDate = DateTime.Parse("2025-08-17 17:30"),
                     Status = "Scheduled"
-                }
-            };
+                            };
             
             context.Fixtures.AddRange(fixtures);
             context.SaveChanges();
+        }
+
+        public static async Task SeedRolesAndAdminUser(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            // Create roles
+            string[] roleNames = { "Admin", "User" };
+            foreach (var roleName in roleNames)
+            {
+                if (!await roleManager.RoleExistsAsync(roleName))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            // Create default admin user
+            var adminEmail = "admin@soccerportal.com";
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+            if (adminUser == null)
+            {
+                adminUser = new ApplicationUser
+                {
+                    UserName = adminEmail,
+                    Email = adminEmail,
+                    EmailConfirmed = true,
+                    FirstName = "Admin",
+                    LastName = "User"
+                };
+
+                var result = await userManager.CreateAsync(adminUser, "Admin123!");
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                }
+            }
         }
     }
 }
