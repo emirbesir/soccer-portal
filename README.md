@@ -20,6 +20,10 @@ A comprehensive web-based soccer management system built with ASP.NET Core MVC.
 
 The Soccer Results Portal is a full-featured web application designed to manage soccer teams, players, matches, fixtures, and venues. It provides an intuitive interface for viewing match results and upcoming fixtures, with administrative capabilities for data management.
 
+
+![Dashboard](docs/screenshots/dashboard.jpg)
+_Dashboard_
+
 ## Features
 
 - **Team Management**: Create, view, edit, and delete soccer teams
@@ -100,7 +104,6 @@ SoccerPortal/
    ├── Properties/          # Project properties (e.g., launchSettings.json)
    └── wwwroot/             # Static files (CSS, JS, images)
 ```
-
 
 ## Team Members
 
