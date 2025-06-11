@@ -2,7 +2,7 @@
 
 # Soccer Results Portal
 
-A comprehensive web-based soccer management system built with ASP.NET Core MVC.
+A web-based soccer management system built with ASP.NET Core MVC.
 
 ![Last Commit](https://img.shields.io/github/last-commit/emirbesir/soccer-portal?style=flat&logo=git&logoColor=white&color=0080ff)
 ![Top Language](https://img.shields.io/github/languages/top/emirbesir/soccer-portal?style=flat&color=0080ff)
