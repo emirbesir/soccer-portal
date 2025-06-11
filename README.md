@@ -76,7 +76,7 @@ The application uses Entity Framework Code-First approach with the following mai
 
 ```
 SoccerPortal/
-├── docs/                    # Project documentation
+├── docs/                   # Project documentation
 └── SoccerPortal/
    ├── Controllers/         # MVC Controllers
    ├── Models/              # Entity and View Models
