@@ -1,6 +1,20 @@
+<div align="center">
+
 # Soccer Results Portal
 
 A comprehensive web-based soccer management system built with ASP.NET Core MVC.
+
+![Last Commit](https://img.shields.io/github/last-commit/emirbesir/SoccerPortal?style=flat&logo=git&logoColor=white&color=0080ff)
+![Top Language](https://img.shields.io/github/languages/top/emirbesir/SoccerPortal?style=flat&color=0080ff)
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?style=flat&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-663399.svg?style=flat&logo=css&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3.svg?style=flat&logo=bootstrap&logoColor=white)
+![.NET](https://img.shields.io/badge/.NET-512BD4.svg?style=flat&logo=dotnet&logoColor=white)
+
+</div>
+
+
 
 ## Project Overview
 
