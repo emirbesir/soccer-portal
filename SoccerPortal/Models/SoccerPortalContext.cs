@@ -51,6 +51,8 @@ namespace SoccerPortal.Models
                 .WithMany(m => m.Fixtures)
                 .HasForeignKey(f => f.MatchID)
                 .OnDelete(DeleteBehavior.Cascade);
+            
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

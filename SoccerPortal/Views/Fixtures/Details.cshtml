@@ -57,8 +57,11 @@
                         </div>
                         <div class="card-footer">
                             <div class="btn-group w-100">
-                                <a asp-action="Edit" asp-route-id="@Model.FixtureID" class="btn btn-warning">Edit Fixture</a>
-                                <a asp-controller="Matches" asp-action="Edit" asp-route-id="@Model.MatchID" class="btn btn-info">Edit Match</a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@Model.FixtureID" class="btn btn-warning">Edit Fixture</a>
+                                    <a asp-controller="Matches" asp-action="Edit" asp-route-id="@Model.MatchID" class="btn btn-info">Edit Match</a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -67,7 +70,10 @@
             <div class="mt-4 text-center">
                 <a asp-action="Index" class="btn btn-secondary">Back to Fixtures</a>
                 <a asp-controller="Matches" asp-action="Details" asp-route-id="@Model.MatchID" class="btn btn-primary">View Match Details</a>
-                <a asp-action="Delete" asp-route-id="@Model.FixtureID" class="btn btn-danger">Delete Fixture</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Delete" asp-route-id="@Model.FixtureID" class="btn btn-danger">Delete Fixture</a>
+                }
             </div>
         </div>
     </div>

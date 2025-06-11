@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoccerPortal.Models;
 
@@ -11,9 +12,11 @@ using SoccerPortal.Models;
 namespace SoccerPortal.Migrations
 {
     [DbContext(typeof(SoccerPortalContext))]
-    partial class SoccerPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250611001925_AddIdentity")]
+    partial class AddIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

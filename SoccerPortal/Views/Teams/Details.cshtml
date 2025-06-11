@@ -25,8 +25,11 @@
                 </div>
                 <div class="col-md-6">
                     <div class="d-flex justify-content-end">
+                    @if (User.IsInRole("Admin"))
+                    {
                         <a asp-action="Edit" asp-route-id="@Model.TeamID" class="btn btn-warning mx-1">Edit</a>
-                        <a asp-action="Index" class="btn btn-secondary mx-1">Back to List</a>
+                    }
+                    <a asp-action="Index" class="btn btn-secondary mx-1">Back to List</a>
                     </div>
                 </div>
             </div>

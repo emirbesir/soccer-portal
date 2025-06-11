@@ -94,9 +94,12 @@
                         <div class="card-header bg-secondary text-white">Actions</div>
                         <div class="card-body">
                             <div class="btn-group-vertical w-100">
-                                <a asp-action="Edit" asp-route-id="@Model.MatchID" class="btn btn-warning mb-2">Edit Match</a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@Model.MatchID" class="btn btn-warning mb-2">Edit Match</a>
+                                    <a asp-action="Delete" asp-route-id="@Model.MatchID" class="btn btn-danger">Delete</a>
+                                }
                                 <a asp-action="Index" class="btn btn-secondary mb-2">Back to List</a>
-                                <a asp-action="Delete" asp-route-id="@Model.MatchID" class="btn btn-danger">Delete</a>
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,10 @@
 <div class="container mt-4">
     <h1>Match Fixtures</h1>
     <p>
-        <a asp-action="Create" class="btn btn-primary">Create New Fixture</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Create New Fixture</a>
+        }
     </p>
 
     <div class="card">
@@ -46,18 +49,18 @@
                                     </td>
                                     <td>@fixture.Match.Venue.VenueName</td>
                                     <td>
-                                        <span class="badge @(fixture.Status == "Completed" ? "badge-success" : 
-                                                            fixture.Status == "Postponed" ? "badge-danger" : 
-                                                            fixture.Status == "In Progress" ? "badge-warning" : 
-                                                            "badge-primary")">
+                                        <span>
                                             @fixture.Status
                                         </span>
                                     </td>
                                     <td>
                                         <div class="btn-group">
                                             <a asp-action="Details" asp-route-id="@fixture.FixtureID" class="btn btn-sm btn-info">Details</a>
-                                            <a asp-action="Edit" asp-route-id="@fixture.FixtureID" class="btn btn-sm btn-warning">Edit</a>
-                                            <a asp-action="Delete" asp-route-id="@fixture.FixtureID" class="btn btn-sm btn-danger">Delete</a>
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                                <a asp-action="Edit" asp-route-id="@fixture.FixtureID" class="btn btn-sm btn-warning">Edit</a>
+                                                <a asp-action="Delete" asp-route-id="@fixture.FixtureID" class="btn btn-sm btn-danger">Delete</a>
+                                            }
                                         </div>
                                     </td>
                                 </tr>

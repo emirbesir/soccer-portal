@@ -7,7 +7,10 @@
 <div class="container mt-4">
     <h1>Stadiums & Venues</h1>
     <p>
-        <a asp-action="Create" class="btn btn-primary">Add New Venue</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Add New Venue</a>
+        }
     </p>
 
     <div class="row">
@@ -25,8 +28,11 @@
                     <div class="card-footer">
                         <div class="btn-group w-100">
                             <a asp-action="Details" asp-route-id="@venue.VenueID" class="btn btn-info">Details</a>
-                            <a asp-action="Edit" asp-route-id="@venue.VenueID" class="btn btn-warning">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@venue.VenueID" class="btn btn-danger">Delete</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@venue.VenueID" class="btn btn-warning">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@venue.VenueID" class="btn btn-danger">Delete</a>
+                            }
                         </div>
                     </div>
                 </div>

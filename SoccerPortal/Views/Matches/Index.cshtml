@@ -84,11 +84,11 @@
                                     <td>
                                         @if (string.IsNullOrEmpty(match.Score))
                                         {
-                                            <span class="badge badge-warning">Upcoming</span>
+                                            <span>Upcoming</span>
                                         }
                                         else
                                         {
-                                            <span class="badge badge-success">@match.Score</span>
+                                            <span>@match.Score</span>
                                         }
                                     </td>
                                     <td>@match.Venue.VenueName</td>
