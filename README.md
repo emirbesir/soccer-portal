@@ -60,7 +60,7 @@ _Dashboard_
 
 3. **Update database connection string**
    - Open `appsettings.json`
-   - Modify the `DefaultConnection` string if needed
+   - Modify the `DefaultConnection` string
 
 4. **Run database migrations**
    ```bash
