@@ -117,4 +117,4 @@ SoccerPortal/
 
 ## License
 
-This project is developed for educational purposes as part of the Software Architecture course at Istanbul Aydin University.
+This project is developed for educational purposes as part of the Software Architecture course at Istanbul Aydin University and is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
